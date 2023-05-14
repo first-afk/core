@@ -26,7 +26,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
     
-class Post(models.Model):
+class newpost(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.CharField(max_length=255)
     image = models.ImageField(upload_to='post_images')
