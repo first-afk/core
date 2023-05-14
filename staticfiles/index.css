@@ -1,0 +1,56 @@
+body{
+    background-color: grey;
+    margin: 0;
+    padding: 0;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.formclass{
+    position: absolute;
+    margin: auto;
+    background-color: pink;
+    padding: 15px;
+    width: 30%;
+    height: auto;
+    bottom: 10%;
+    left: 35%;
+    /* text-align: center; */
+}
+input{
+    padding: 10px;
+    border-radius: 7px;
+    margin: auto;
+    width: 70%;
+    align-items: center;
+}
+
+ul {
+    list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+  background-color: pink;
+}
+
+li {
+    float: left;
+}
+  
+li a {
+    display: block;
+  color: #333;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+button{
+    padding: 8px;
+    width: 75%;
+}
