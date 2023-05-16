@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Profile, newpost
+from .models import Profile, New, Likes
 # Create your views here.
 
 @login_required(login_url = '/signin')
@@ -12,8 +12,8 @@ def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
 
-    feed = newpost.objects.all()
-    return render(request, 'index.html', { 'feed': feed})
+    feed = New.objects.all()
+    return render(request, 'index.html', {'user_profile': user_profile, 'feed': feed})
 
 @login_required(login_url = '/signin')
 def settings(request):
@@ -38,7 +38,7 @@ def settings(request):
             user_profile.bio = bio
             user_profile.location = location
             user_profile.save()
-        return redirect('/')
+        return redirect(settings)
 
     return render(request, 'settings.html', {'user_profile': user_profile})
 
@@ -97,17 +97,42 @@ def signin(request):
 
 @login_required(login_url = '/signin')
 def upload(request):
-    if request.method ==' POST':
+    if request.method == 'POST':
         user = request.user.username
         image= request.FILES.get('image_upload')
         caption = request.POST['caption']
 
-        new_post = newpost.objects.create(user=user, image=image, caption=caption)
+        new_post = New.objects.create(user= user, image= image, caption= caption)
         new_post.save()
         return redirect('/')
     else:
         return redirect ('/')
 
+@login_required(login_url = '/signin')
+def likes(request):
+    pass
+    # username = request.user.username
+    # post_id = request.GET.get('post_id')
+
+    # feed = New.objects.get(id =post_id)
+
+    # likefilter = Likes.objects.get(post_id=post_id, username=username).first()
+
+    # if likefilter == None:
+    #     new_like = Likes.objects.create(post_id= post_id, username= username)
+    #     new_like.save()
+
+    #     feed.likes = feed.likes+1
+    #     feed.save()
+    #     return redirect('/')
+    
+    # else:
+    #     likefilter.delete()
+    #     feed.likes=feed.likes-1
+    #     feed.save()
+    #     return redirect('/')
+    
+    
 @login_required(login_url = '/signin')
 def logout(request):
     auth.logout(request)
